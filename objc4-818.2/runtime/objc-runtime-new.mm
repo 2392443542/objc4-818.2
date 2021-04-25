@@ -1208,10 +1208,17 @@ public:
 
         auto &map = get();
         auto it = map.find(previously);
+        const char *mangledName  = cls->mangledName();
+        const char *LGPersonName = "LGPerson";
+       
+        if (strcmp(mangledName, LGPersonName) == 0) {
+            auto kc_ro = (const class_ro_t *)cls->data();
+            printf("attachToClass: 这个是我要研究的 %s \n",LGPersonName);
+        }
 
-        if (it != map.end()) {
+        if (it != map.end()) { //只有类加载两次才会走 ，主类没有实现load，分类实现了
             category_list &list = it->second;
-            if (flags & ATTACH_CLASS_AND_METACLASS) {
+            if (flags & ATTACH_CLASS_AND_METACLASS) { //复制是类和元类
                 int otherFlags = flags & ~ATTACH_CLASS_AND_METACLASS;
                 attachCategories(cls, list.array(), list.count(), otherFlags | ATTACH_CLASS);
                 attachCategories(cls->ISA(), list.array(), list.count(), otherFlags | ATTACH_METACLASS);
@@ -1295,7 +1302,13 @@ prepareMethodLists(Class cls, method_list_t **addedLists, int addedCount,
                    bool baseMethods, bool methodsFromBundle, const char *why)
 {
     runtimeLock.assertLocked();
-
+    const char *mangledName  = cls->mangledName();
+    const char *LGPersonName = "LGPerson";
+   
+    if (strcmp(mangledName, LGPersonName) == 0) {
+        auto kc_ro = (const class_ro_t *)cls->data();
+        printf("prepareMethodLists: 这个是我要研究的 %s \n",LGPersonName);
+    }
     if (addedCount == 0) return;
 
     // There exist RR/AWZ/Core special cases for some class's base methods.
@@ -1348,6 +1361,14 @@ class_rw_t::extAlloc(const class_ro_t *ro, bool deepCopy)
     auto rwe = objc::zalloc<class_rw_ext_t>();
 
     rwe->version = (ro->flags & RO_META) ? 7 : 0;
+    
+    const char *mangledName  = ro->getName();
+    const char *LGPersonName = "LGPerson";
+   
+    if (strcmp(mangledName, LGPersonName) == 0) {
+       
+        printf("extAlloc: 这个是我要研究的 %s \n",LGPersonName);
+    }
 
     method_list_t *list = ro->baseMethods();
     if (list) {
@@ -1381,6 +1402,7 @@ static void
 attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cats_count,
                  int flags)
 {
+    
     if (slowpath(PrintReplacedMethods)) {
         printReplacements(cls, cats_list, cats_count);
     }
@@ -1389,7 +1411,13 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
                      cats_count, (flags & ATTACH_EXISTING) ? " existing" : "",
                      cls->nameForLogging(), (flags & ATTACH_METACLASS) ? " (meta)" : "");
     }
-
+    const char *mangledName  = cls->mangledName();
+    const char *LGPersonName = "LGPerson";
+   
+    if (strcmp(mangledName, LGPersonName) == 0) {
+//        auto kc_ro = (const class_ro_t *)cls->data();
+        printf("attachCategories: 这个是我要研究的 %s \n",LGPersonName);
+    }
     /*
      * Only a few classes have more than 64 categories during launch.
      * This uses a little stack, and avoids malloc.
@@ -1411,6 +1439,8 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
     bool fromBundle = NO;
     bool isMeta = (flags & ATTACH_METACLASS);
     auto rwe = cls->data()->extAllocIfNeeded();
+//     分类 + addMethod + addpro + addprocto
+    
 
     for (uint32_t i = 0; i < cats_count; i++) {
         auto& entry = cats_list[i];
@@ -1480,6 +1510,13 @@ static void methodizeClass(Class cls, Class previously)
     auto ro = rw->ro();
     auto rwe = rw->ext();
 
+    const char *mangledName  = cls->mangledName();
+    const char *LGPersonName = "LGPerson";
+   
+    if (strcmp(mangledName, LGPersonName) == 0) {
+        auto kc_ro = (const class_ro_t *)cls->data();
+        printf("methodizeClass: 这个是我要研究的 %s \n",LGPersonName);
+    }
     // Methodizing for the first time
     if (PrintConnecting) {
         _objc_inform("CLASS: methodizing class '%s' %s", 
@@ -2045,6 +2082,7 @@ static Class getMaybeUnrealizedNonMetaClass(Class metacls, id inst)
 
     // special case for root metaclass
     // where inst == inst->ISA() == metacls is possible
+    // nsobject->isa = nsobject 根源类
     if (metacls->ISA() == metacls) {
         Class cls = metacls->getSuperclass();
         ASSERT(cls->isRealized());
@@ -2610,7 +2648,9 @@ static Class realizeClassWithoutSwift(Class cls, Class previously)
     class_rw_t *rw;
     Class supercls;
     Class metacls;
-
+    
+   
+ 
     if (!cls) return nil;
     if (cls->isRealized()) {
         validateAlreadyRealizedClass(cls);
@@ -2619,7 +2659,12 @@ static Class realizeClassWithoutSwift(Class cls, Class previously)
     ASSERT(cls == remapClass(cls));
 
     // fixme verify class is not in an un-dlopened part of the shared cache?
-
+    const char *mangledName  = cls->mangledName();
+    const char *LGPersonName = "LGPerson";
+    if (strcmp(mangledName, LGPersonName) == 0) {
+        auto kc_ro = (const class_ro_t *)cls->data();
+        printf("realizeClassWithoutSwift: 这个是我要研究的 %s \n",LGPersonName);
+    }
     auto ro = (const class_ro_t *)cls->data();
     auto isMeta = ro->flags & RO_META;
     if (ro->flags & RO_FUTURE) {
@@ -2740,7 +2785,7 @@ static Class realizeClassWithoutSwift(Class cls, Class previously)
 
     // Attach categories
     methodizeClass(cls, previously);
-
+    
     return cls;
 }
 
@@ -3133,7 +3178,13 @@ static void load_categories_nolock(header_info *hi) {
             category_t *cat = catlist[i];
             Class cls = remapClass(cat->cls);
             locstamped_category_t lc{cat, hi};
-
+            const char *mangledName  = cls->mangledName();
+            const char *LGPersonName = "LGPerson";
+            if (strcmp(mangledName, LGPersonName) == 0) {
+                auto kc_rw = cls->data();
+                auto kc_ro = kc_rw->ro();
+                printf("load_categories_nolock: 这个是我要研究的 %s \n",LGPersonName);
+            }
             if (!cls) {
                 // Category's target class is missing (probably weak-linked).
                 // Ignore the category.
@@ -3629,8 +3680,16 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
 
         for (i = 0; i < count; i++) {
             Class cls = (Class)classlist[i];
+            const char *mangledName  = cls->mangledName();
+            const char *LGPersonName = "LGPerson";
+           
+            if (strcmp(mangledName, LGPersonName) == 0) {
+                auto kc_ro = (const class_ro_t *)cls->data();
+                printf("_read_images: 这个是我要研究的 %s \n",LGPersonName);
+            }
             Class newCls = readClass(cls, headerIsBundle, headerIsPreoptimized);
-
+            
+           
             if (newCls != cls  &&  newCls) {
                 // Class was moved but not deleted. Currently this occurs 
                 // only when the new class resolved a future class.
@@ -3755,9 +3814,17 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
 
     // Realize non-lazy classes (for +load methods and static instances)
     for (EACH_HEADER) {
-        classref_t const *classlist = hi->nlclslist(&count);
+        classref_t const *classlist = hi->nlclslist(&count); // 获取所有实现load 的类
         for (i = 0; i < count; i++) {
             Class cls = remapClass(classlist[i]);
+            
+            const char *mangledName  = cls->mangledName();
+            const char *LGPersonName = "LGPerson";
+           
+            if (strcmp(mangledName, LGPersonName) == 0) {
+                auto kc_ro = (const class_ro_t *)cls->data();
+                printf("_read_images1: 这个是我要研究的 %s \n",LGPersonName);
+            }
             if (!cls) continue;
 
             addClassTableEntry(cls);
@@ -3779,6 +3846,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
     ts.log("IMAGE TIMES: realize non-lazy classes");
 
     // Realize newly-resolved future classes, in case CF manipulates them
+   //     重点
     if (resolvedFutureClasses) {
         for (i = 0; i < resolvedFutureClassCount; i++) {
             Class cls = resolvedFutureClasses[i];
@@ -5935,7 +6003,7 @@ findMethodInSortedMethodList(SEL key, const method_list_t *list, const getNameFu
     uint32_t count;
     
     for (count = list->count; count != 0; count >>= 1) {
-        probe = base + (count >> 1);
+        probe = base + (count >> 1); //移到中间
         
         uintptr_t probeValue = (uintptr_t)getName(probe);
         
@@ -5949,7 +6017,7 @@ findMethodInSortedMethodList(SEL key, const method_list_t *list, const getNameFu
             return &*probe;
         }
         
-        if (keyValue > probeValue) {
+        if (keyValue > probeValue) { //结果在下半段
             base = probe + 1;
             count--;
         }
@@ -6475,6 +6543,8 @@ IMP lookUpImpOrForward(id inst, SEL sel, Class cls, int behavior)
         }
 
         // Superclass cache.
+//         缓存 未查找到-lookupimp-慢查找
+//        本类-父类-nsobject-nil （都在for循环中进行）
         imp = cache_getImp(curClass, sel);
         if (slowpath(imp == forward_imp)) {
             // Found a forward:: entry in a superclass.
@@ -7973,7 +8043,7 @@ _class_createInstanceFromZone(Class cls, size_t extraBytes, void *zone,
     bool hasCxxDtor = cls->hasCxxDtor();
     bool fast = cls->canAllocNonpointer();
     size_t size;
-
+// 1.需要开辟多大的内存空间
     size = cls->instanceSize(extraBytes);
     if (outAllocatedSize) *outAllocatedSize = size;
 
@@ -7981,6 +8051,7 @@ _class_createInstanceFromZone(Class cls, size_t extraBytes, void *zone,
     if (zone) {
         obj = (id)malloc_zone_calloc((malloc_zone_t *)zone, 1, size);
     } else {
+//  2.申请内存空间，返回地址指针
         obj = (id)calloc(1, size);
     }
     if (slowpath(!obj)) {
@@ -7991,6 +8062,7 @@ _class_createInstanceFromZone(Class cls, size_t extraBytes, void *zone,
     }
 
     if (!zone && fast) {
+//       3. 将指针关联到相应的类
         obj->initInstanceIsa(cls, hasCxxDtor);
     } else {
         // Use raw pointer isa on the assumption that they might be

@@ -849,7 +849,7 @@ void cache_t::insert(SEL sel, IMP imp, id receiver)
     // Use the cache as-is if until we exceed our expected fill ratio.
     mask_t newOccupied = occupied() + 1;
     unsigned oldCapacity = capacity(), capacity = oldCapacity;
-    if (slowpath(isConstantEmptyCache())) {
+    if (slowpath(isConstantEmptyCache())) { //开辟空间
         // Cache is read-only. Replace it.
         if (!capacity) capacity = INIT_CACHE_SIZE;
         reallocate(oldCapacity, capacity, /* freeOld */false);
@@ -863,7 +863,7 @@ void cache_t::insert(SEL sel, IMP imp, id receiver)
     }
 #endif
     else {
-        capacity = capacity ? capacity * 2 : INIT_CACHE_SIZE;
+        capacity = capacity ? capacity * 2 : INIT_CACHE_SIZE; // 扩容两倍
         if (capacity > MAX_CACHE_SIZE) {
             capacity = MAX_CACHE_SIZE;
         }

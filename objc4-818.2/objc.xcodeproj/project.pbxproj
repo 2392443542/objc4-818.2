@@ -48,10 +48,9 @@
 		393CEAC60DC69E67000B69DE /* objc-references.h in Headers */ = {isa = PBXBuildFile; fileRef = 393CEAC50DC69E67000B69DE /* objc-references.h */; };
 		39ABD72312F0B61800D1054C /* objc-weak.h in Headers */ = {isa = PBXBuildFile; fileRef = 39ABD71F12F0B61800D1054C /* objc-weak.h */; };
 		39ABD72412F0B61800D1054C /* objc-weak.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39ABD72012F0B61800D1054C /* objc-weak.mm */; };
-		3A03047A262EC4F5002DAD15 /* LXAnimal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A030471262EC4F5002DAD15 /* LXAnimal.m */; };
-		3A03047B262EC4F5002DAD15 /* LGPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A030472262EC4F5002DAD15 /* LGPerson.m */; };
-		3A03047C262EC4F5002DAD15 /* objc_class_bits.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A030475262EC4F5002DAD15 /* objc_class_bits.m */; };
-		3A03047D262EC4F5002DAD15 /* KindAndMemory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A030478262EC4F5002DAD15 /* KindAndMemory.m */; };
+		3A0304F3262EC9E1002DAD15 /* LGPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0304F2262EC9E1002DAD15 /* LGPerson.m */; };
+		3AAA9501263541A2000F270B /* LGPerson+LGA.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA94FE263541A2000F270B /* LGPerson+LGA.m */; };
+		3AAA9502263541A2000F270B /* LGPerson+LGB.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAA94FF263541A2000F270B /* LGPerson+LGB.m */; };
 		6E1475EA21DFDB1B001357EA /* llvm-AlignOf.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E1475E521DFDB1A001357EA /* llvm-AlignOf.h */; };
 		6E1475EB21DFDB1B001357EA /* llvm-DenseMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E1475E621DFDB1B001357EA /* llvm-DenseMap.h */; };
 		6E1475EC21DFDB1B001357EA /* llvm-DenseMapInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E1475E721DFDB1B001357EA /* llvm-DenseMapInfo.h */; };
@@ -230,14 +229,12 @@
 		393CEAC50DC69E67000B69DE /* objc-references.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "objc-references.h"; path = "runtime/objc-references.h"; sourceTree = "<group>"; };
 		39ABD71F12F0B61800D1054C /* objc-weak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "objc-weak.h"; path = "runtime/objc-weak.h"; sourceTree = "<group>"; };
 		39ABD72012F0B61800D1054C /* objc-weak.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "objc-weak.mm"; path = "runtime/objc-weak.mm"; sourceTree = "<group>"; };
-		3A030470262EC4F5002DAD15 /* LXAnimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXAnimal.h; sourceTree = "<group>"; };
-		3A030471262EC4F5002DAD15 /* LXAnimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXAnimal.m; sourceTree = "<group>"; };
-		3A030472262EC4F5002DAD15 /* LGPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGPerson.m; sourceTree = "<group>"; };
-		3A030474262EC4F5002DAD15 /* objc_class_bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objc_class_bits.h; sourceTree = "<group>"; };
-		3A030475262EC4F5002DAD15 /* objc_class_bits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = objc_class_bits.m; sourceTree = "<group>"; };
-		3A030477262EC4F5002DAD15 /* KindAndMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KindAndMemory.h; sourceTree = "<group>"; };
-		3A030478262EC4F5002DAD15 /* KindAndMemory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KindAndMemory.m; sourceTree = "<group>"; };
-		3A030479262EC4F5002DAD15 /* LGPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGPerson.h; sourceTree = "<group>"; };
+		3A0304F1262EC9E1002DAD15 /* LGPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGPerson.h; sourceTree = "<group>"; };
+		3A0304F2262EC9E1002DAD15 /* LGPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGPerson.m; sourceTree = "<group>"; };
+		3AAA94FD263541A2000F270B /* LGPerson+LGA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGPerson+LGA.h"; sourceTree = "<group>"; };
+		3AAA94FE263541A2000F270B /* LGPerson+LGA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGPerson+LGA.m"; sourceTree = "<group>"; };
+		3AAA94FF263541A2000F270B /* LGPerson+LGB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LGPerson+LGB.m"; sourceTree = "<group>"; };
+		3AAA9500263541A2000F270B /* LGPerson+LGB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LGPerson+LGB.h"; sourceTree = "<group>"; };
 		6E1475E521DFDB1A001357EA /* llvm-AlignOf.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = "llvm-AlignOf.h"; path = "runtime/llvm-AlignOf.h"; sourceTree = "<group>"; tabWidth = 2; };
 		6E1475E621DFDB1B001357EA /* llvm-DenseMap.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = "llvm-DenseMap.h"; path = "runtime/llvm-DenseMap.h"; sourceTree = "<group>"; tabWidth = 2; };
 		6E1475E721DFDB1B001357EA /* llvm-DenseMapInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = "llvm-DenseMapInfo.h"; path = "runtime/llvm-DenseMapInfo.h"; sourceTree = "<group>"; tabWidth = 2; };
@@ -397,12 +394,12 @@
 		0466411325A4991B002440A8 /* KCObjcBuild */ = {
 			isa = PBXGroup;
 			children = (
-				3A030476262EC4F5002DAD15 /* kindofclass和memoreofclass */,
-				3A030479262EC4F5002DAD15 /* LGPerson.h */,
-				3A030472262EC4F5002DAD15 /* LGPerson.m */,
-				3A030470262EC4F5002DAD15 /* LXAnimal.h */,
-				3A030471262EC4F5002DAD15 /* LXAnimal.m */,
-				3A030473262EC4F5002DAD15 /* object_class的bits */,
+				3AAA94FD263541A2000F270B /* LGPerson+LGA.h */,
+				3AAA94FE263541A2000F270B /* LGPerson+LGA.m */,
+				3AAA9500263541A2000F270B /* LGPerson+LGB.h */,
+				3AAA94FF263541A2000F270B /* LGPerson+LGB.m */,
+				3A0304F1262EC9E1002DAD15 /* LGPerson.h */,
+				3A0304F2262EC9E1002DAD15 /* LGPerson.m */,
 				0466411425A4991B002440A8 /* main.m */,
 			);
 			path = KCObjcBuild;
@@ -490,24 +487,6 @@
 				0466411225A4991B002440A8 /* KCObjcBuild */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		3A030473262EC4F5002DAD15 /* object_class的bits */ = {
-			isa = PBXGroup;
-			children = (
-				3A030474262EC4F5002DAD15 /* objc_class_bits.h */,
-				3A030475262EC4F5002DAD15 /* objc_class_bits.m */,
-			);
-			path = "object_class的bits";
-			sourceTree = "<group>";
-		};
-		3A030476262EC4F5002DAD15 /* kindofclass和memoreofclass */ = {
-			isa = PBXGroup;
-			children = (
-				3A030477262EC4F5002DAD15 /* KindAndMemory.h */,
-				3A030478262EC4F5002DAD15 /* KindAndMemory.m */,
-			);
-			path = "kindofclass和memoreofclass";
 			sourceTree = "<group>";
 		};
 		6EF877D82325D62600963DBB /* objcdt */ = {
@@ -903,11 +882,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A03047C262EC4F5002DAD15 /* objc_class_bits.m in Sources */,
-				3A03047D262EC4F5002DAD15 /* KindAndMemory.m in Sources */,
-				3A03047B262EC4F5002DAD15 /* LGPerson.m in Sources */,
 				0466411525A4991B002440A8 /* main.m in Sources */,
-				3A03047A262EC4F5002DAD15 /* LXAnimal.m in Sources */,
+				3AAA9501263541A2000F270B /* LGPerson+LGA.m in Sources */,
+				3A0304F3262EC9E1002DAD15 /* LGPerson.m in Sources */,
+				3AAA9502263541A2000F270B /* LGPerson+LGB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

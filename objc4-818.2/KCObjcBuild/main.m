@@ -12,13 +12,25 @@
 // 爽了之后,还来一个 👍
 
 #import <Foundation/Foundation.h>
+#import "LGPerson.h"
+//#import "LXAnimal.h"
+#import <objc/runtime.h>
+#import "LGPerson+LGA.h"
+
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
-        NSLog(@"Hello, World!");
-        NSObject *objc = [NSObject alloc];
-        
+        LGPerson *objc1 = [LGPerson alloc];
+    
+//        [LGPerson eat];
+//        [objc1  sleep];
+//        [objc1  kc_instanceMethod1];
+//        [objc1  sayHello1];
     }
     return 0;
 }
+
+
+
+

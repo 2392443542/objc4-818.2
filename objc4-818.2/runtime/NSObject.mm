@@ -2002,6 +2002,7 @@ objc_opt_class(id obj)
     if (slowpath(!obj)) return nil;
     Class cls = obj->getIsa();
     if (fastpath(!cls->hasCustomCore())) {
+        BOOL temp = cls->isMetaClass();
         return cls->isMetaClass() ? obj : cls;
     }
 #endif
@@ -2015,8 +2016,12 @@ objc_opt_isKindOfClass(id obj, Class otherClass)
 #if __OBJC2__
     if (slowpath(!obj)) return NO;
     Class cls = obj->getIsa();
+//     1.cls 元类 otherClass 为类
+//   2.cls 元类  otherClass lxanimal
+    //   3.cls 元类  otherClass nsobject
     if (fastpath(!cls->hasCustomCore())) {
         for (Class tcls = cls; tcls; tcls = tcls->getSuperclass()) {
+            bool temp = tcls == otherClass;
             if (tcls == otherClass) return YES;
         }
         return NO;
@@ -2253,6 +2258,8 @@ __attribute__((objc_nonlazy_class))
 }
 
 + (BOOL)isMemberOfClass:(Class)cls {
+    id temp = self->ISA();
+    BOOL isequal = self->ISA() == cls;
     return self->ISA() == cls;
 }
 
@@ -2261,6 +2268,11 @@ __attribute__((objc_nonlazy_class))
 }
 
 + (BOOL)isKindOfClass:(Class)cls {
+//    nsobject 元类（根元类） 和 类nsobject
+// 类nsobject 和 nsobject 根元类
+    id temp = self->ISA();
+    id temp1 = cls;
+//    BOOL isequal = self->ISA() == cls;
     for (Class tcls = self->ISA(); tcls; tcls = tcls->getSuperclass()) {
         if (tcls == cls) return YES;
     }

@@ -368,7 +368,7 @@ LLookupStart\Function:
 	and	p12, p12, p11, LSR #48		// x12 = (_cmd ^ (_cmd >> 7)) & mask
 #else
 	and	p10, p11, #0x0000ffffffffffff	// p10 = buckets
-	and	p12, p1, p11, LSR #48		// x12 = _cmd & mask
+	and	p12, p1, p11, LSR #48		// x12 = _cmd & mask  右移指令，将p10右移48位
 #endif // CONFIG_USE_PREOPT_CACHES
 #elif CACHE_MASK_STORAGE == CACHE_MASK_STORAGE_LOW_4
 	ldr	p11, [x16, #CACHE]				// p11 = mask|buckets

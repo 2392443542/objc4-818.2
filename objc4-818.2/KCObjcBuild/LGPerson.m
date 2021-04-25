@@ -7,14 +7,29 @@
 
 #import "LGPerson.h"
 
+
 @implementation LGPerson
-//+ (instancetype)allocWithZone:(struct _NSZone *)zone  {
-//    return [super allocWithZone:zone];
+
+//+ (void)load{
+//
 //}
-- (void)sleep {
-    NSLog(@"睡觉");
+
+- (void)kc_instanceMethod3{
+    NSLog(@"%s",__func__);
 }
-+ (void)eat {
-    NSLog(@"吃饭");
+
+- (void)kc_instanceMethod1{
+    NSLog(@"%s",__func__);
 }
+
+- (void)kc_instanceMethod2{
+    NSLog(@"%s",__func__);
+}
+
+
++ (void)kc_sayClassMethod{
+    NSLog(@"%s",__func__);
+}
+
+
 @end
